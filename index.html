@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colmeia</title>
+    <meta name="description" content="Associação de Mulheres pelo Rio Grande do Norte. Promovendo autonomia, sustentabilidade e empoderamento feminino através de habitação, agroecologia e cultura.">
+    <meta name="keywords" content="empoderamento feminino, ONG Rio Grande do Norte, habitação sustentável, agroecologia, mulheres">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Colmeia Associação de Mulheres pelo Rio Grande do Norte">
+    <meta property="og:description" content="Transformando vidas através do empoderamento feminino no RN">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://colmeiaamrn.org">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NGO",
+        "name": "Colmeia Associação de Mulheres pelo Rio Grande do Norte",
+        "description": "Ass",
+        "foundingDate": "2024",
+        "location": {
+            "@type": "Place",
+            "addressRegion": "Rio Grande do Norte",
+            "addressCountry": "BR"
+        }
+    }
+    </script>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Incluindo a biblioteca Swiper para o carrossel -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FDB813',
+                        secondary: '#FF6B35', 
+                        accent: '#8A2BE2',
+                        background: '#F8F1E9',
+                        dark: '#2C1810'
+                    },
+                    fontFamily: {
+                        'serif': ['Georgia', 'serif'],
+                        'sans': ['Open Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            background-color: #F8F1E9;
+            color: #2C1810;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(45deg, rgba(253, 184, 19, 0.9), rgba(255, 107, 53, 0.8));
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #FDB813, #FF6B35);
+            transition: width 1s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .newsletter-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+        }
+        
+        .newsletter-popup.show {
+            transform: translateX(0);
+        }
+        
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 998;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .dark-mode {
+                background-color: #1a1a1a;
+                color: #f0f0f0;
+            }
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #FDB813 !important;
+        }
+        
+        .search-highlight {
+            background-color: #FDB813;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Estilo customizado para o carrossel de duas colunas */
+        .project-carousel-slide, .hero-carousel-slide {
+            min-height: 500px; /* Garante que o slide tenha altura para o conteúdo */
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .project-content-box, .hero-content-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .project-image-box, .hero-image-box {
+            min-height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Estilos específicos para o Hero */
+        .hero-swiper-container {
+            /* Removendo min-height: calc(100vh - 96px) para reduzir o espaço em branco */
+            padding-top: 2rem; 
+            padding-bottom: 2rem; 
+        }
+
+        .hero-image-box {
+            min-height: 400px; /* Altura ajustada para ser menor */
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-carousel-slide {
+            align-items: stretch;
+        }
+
+        .hero-content-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px; /* Altura ajustada para ser menor */
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Regras para o Carrossel Swiper para resolver o problema de visualização parcial */
+        .swiper-no-visible-overflow {
+            overflow: hidden;
+            /* Adiciona margem horizontal para que o contêiner interno mx-auto funcione, 
+               mas o Swiper original não precisa disso, apenas o elemento pai */
+        }
+        /* Ajuste para o padding lateral para dispositivos móveis */
+        @media (max-width: 768px) {
+            .project-carousel-slide, .hero-carousel-slide {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            .project-image-box, .hero-image-box {
+                min-height: 250px;
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            .hero-content-box {
+                min-height: auto;
+            }
+            .hero-swiper-container {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-lg z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="https://raw.githubusercontent.com/Prompt-Lab-AI/imagens/refs/heads/main/Gemini_Generated_Image_99224i99224i9922-fotor-20251012225443.png" alt="ass" class="h-24">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="nav-link hover:text-primary transition-colors">Início</a>
+                    <!-- O link "Sobre" é mantido mas levará à nova seção de vídeo/missão -->
+                    <a href="#sobre" class="nav-link hover:text-primary transition-colors">Sobre</a>
+                    <a href="#projetos" class="nav-link hover:text-primary transition-colors">Projetos</a>
+                    <a href="#impacto" class="nav-link hover:text-primary transition-colors">Impacto</a>
+                    <a href="#contato" class="nav-link hover:text-primary transition-colors">Contato</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="lg:hidden hidden" id="mobile-menu">
+                <div class="mt-4 space-y-4">
+                    <a href="#home" class="block py-2 hover:text-primary">Início</a>
+                    <!-- O link "Sobre" é mantido mas levará à nova seção de vídeo/missão -->
+                    <a href="#sobre" class="block py-2 hover:text-primary">Sobre</a>
+                    <a href="#projetos" class="block py-2 hover:text-primary">Projetos</a>
+                    <a href="#impacto" class="block py-2 hover:text-primary">Impacto</a>
+                    <a href="#contato" class="block py-2 hover:text-primary">Contato</a>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+
+    <!-- Hero Section (Novo Carrossel de 2 Colunas) -->
+    <section id="home" class="pt-24 relative overflow-hidden bg-background">
+        <!-- Container principal do Swiper que agora ocupa 100% da largura, com overflow hidden -->
+        <div class="swiper hero-swiper hero-swiper-container swiper-no-visible-overflow">
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1: Empoderamento (Texto Esquerda) -->
+                <div class="swiper-slide hero-carousel-slide">
+                    <!-- Conteúdo do slide centralizado -->
+                    <div class="container mx-auto px-6">
+                        <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                            <!-- Coluna do Conteúdo (Esquerda) -->
+                            <div class="hero-content-box fade-in">
+                                <h1 class="text-5xl lg:text-6xl font-bold font-sans text-dark mb-4">
+                                    Empoderando Mulheres,<br>Construindo Futuros
+                                </h1>
+                                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                                    Transformamos vidas através da autonomia, sustentabilidade e fortalecimento feminino no Rio Grande do Norte.
+                                </p>
+                                <a href="#sobre" class="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-secondary transition-colors">
+                                    Assista ao Vídeo de Apresentação
+                                </a>
+                            </div>
+                            <!-- Coluna da Imagem (Direita) -->
+                            <div class="hero-image-box fade-in" 
+                                 style="background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Habitação e Agroecologia (Texto Direita - Alternando) -->
+                <div class="swiper-slide hero-carousel-slide">
+                    <!-- Conteúdo do slide centralizado -->
+                    <div class="container mx-auto px-6">
+                        <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                            <!-- Coluna da Imagem (Esquerda) -->
+                            <div class="hero-image-box order-2 md:order-1 fade-in" 
+                                 style="background-image: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                            </div>
+                            <!-- Coluna do Conteúdo (Direita) -->
+                            <div class="hero-content-box order-1 md:order-2 fade-in">
+                                <h1 class="text-5xl lg:text-6xl font-bold font-sans text-dark mb-4">
+                                    Sustentabilidade e<br>Independência
+                                </h1>
+                                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                                    Nossos projetos focam em habitação sustentável, segurança alimentar e agroecologia para garantir a autonomia econômica e social das famílias.
+                                </p>
+                                <a href="#projetos" class="inline-block bg-secondary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary transition-colors">
+                                    Conheça Nossos Projetos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Cultura e Direitos (Texto Esquerda) -->
+                <div class="swiper-slide hero-carousel-slide">
+                    <!-- Conteúdo do slide centralizado -->
+                    <div class="container mx-auto px-6">
+                        <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                            <!-- Coluna do Conteúdo (Esquerda) -->
+                            <div class="hero-content-box fade-in">
+                                <h1 class="text-5xl lg:text-6xl font-bold font-sans text-dark mb-4">
+                                    Cultura, Voz e<br>Participação
+                                </h1>
+                                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                                    Valorizamos a identidade cultural potiguar e defendemos os direitos, garantindo que as mulheres tenham voz ativa na construção de uma sociedade mais justa.
+                                </p>
+                                <a href="#contato" class="inline-block bg-accent text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary transition-colors">
+                                    Participe Conosco
+                                </a>
+                            </div>
+                            <!-- Coluna da Imagem (Direita) -->
+                            <div class="hero-image-box fade-in" 
+                                 style="background-image: url('https://raw.githubusercontent.com/Prompt-Lab-AI/imagens/refs/heads/main/mulheres.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Paginação -->
+            <div class="swiper-pagination"></div>
+            <!-- Navegação -->
+            <div class="swiper-button-next text-dark"></div>
+            <div class="swiper-button-prev text-dark"></div>
+        </div>
+    </section>
+
+    <!-- Vídeo de Apresentação e Missão, Visão, Valores Section (ID: sobre) -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            
+            <!-- Título e Vídeo de Apresentação (Substitui "Nossa História" e Timeline) -->
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Afinal, o que é a Colmeia? </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-10">
+                    Conheça a Colmeia Associação de Mulheres pelo Rio Grande do Norte, nossa missão e o impacto de nossas ações no Rio Grande do Norte.
+                </p>
+                
+                <!-- YouTube Video Iframe (Configurado para iniciar pausado e no tempo 28s) -->
+                <div class="max-w-4xl mx-auto shadow-xl rounded-xl overflow-hidden fade-in">
+                    <!-- Configurações: autoplay=0 (pausado), controls=1, rel=0 (sem vídeos relacionados), start=28, modestbranding=1 -->
+                    <div class="relative" style="padding-top: 56.25%;">
+                        <iframe 
+                            class="absolute inset-0 w-full h-full rounded-xl" 
+                            src="https://www.youtube.com/embed/_Ws6ix0eups?autoplay=0&controls=1&rel=0&start=28&modestbranding=1" 
+                            frameborder="0" 
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Missão, Visão, Valores (Mantidos) -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-primary to-secondary text-white p-8 rounded-xl card-hover fade-in expandable-card">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-bullseye text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold font-sans">Missão</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-white/90">Promover o empoderamento e a autonomia das mulheres do Rio Grande do Norte por meio de ações integradas de habitação, desenvolvimento territorial, social e econômico, segurança alimentar, erradicação da pobreza, defesa de direitos, preservação ambiental, agroecologia, assistência social, educação, cultura e saúde, contribuindo para uma sociedade mais justa, igualitária e sustentável.</p>
+                        <div class="card-expanded hidden mt-4">
+                            <p class="text-white/90">...focando em habitação digna, educação ambiental, capacitação profissional e fortalecimento da identidade cultural, criando oportunidades reais de transformação social no Rio Grande do Norte.</p>
+                        </div>
+                    </div>
+                    <button class="mt-4 text-sm underline expand-btn">Ler mais</button>
+                </div>
+                
+                <div class="bg-gradient-to-br from-secondary to-accent text-white p-8 rounded-xl card-hover fade-in expandable-card">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-eye text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold font-sans">Visão</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-white/90">Ser referência na promoção da igualdade de gênero, no fortalecimento das mulheres e no desenvolvimento sustentável do Rio Grande do Norte, transformando vidas e comunidades por meio de práticas inovadoras, inclusivas e ambientalmente responsáveis.</p>
+                        <div class="card-expanded hidden mt-4">
+                            <p class="text-white/90">...com acesso à moradia digna, educação de qualidade, renda sustentável e participação ativa na construção de uma sociedade mais justa e igualitária.</p>
+                        </div>
+                    </div>
+                    <button class="mt-4 text-sm underline expand-btn">Ler mais</button>
+                </div>
+                
+                <div class="bg-gradient-to-br from-accent to-primary text-white p-8 rounded-xl card-hover fade-in expandable-card">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-heart text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold font-sans">Valores</h3>
+                    </div>
+                    <div class="card-content">
+  <ul class="text-white/90 list-disc pl-6">
+    <li><strong>Empoderamento:</strong> Valorizar a autonomia e a liderança das mulheres como agentes de transformação.</li>
+    <li><strong>Sustentabilidade:</strong> Promover o desenvolvimento com respeito ao meio ambiente e às futuras gerações.</li>
+    <li><strong>Inclusão:</strong> Garantir a participação de todas as mulheres, respeitando a diversidade e combatendo desigualdades.</li>
+    
+  </ul>
+  <div class="card-expanded hidden mt-4">
+                            <p class="text-white/90"><li><strong>Solidariedade:</strong> Fomentar a cooperação e o apoio mútuo para o bem-estar coletivo.</li>
+                                <li><strong>Justiça Social:</strong> Defender os direitos humanos e a equidade em todas as esferas da sociedade.</li>
+    <li><strong>Transparência:</strong> Atuar com ética, responsabilidade e clareza em todas as ações.</li></p>
+                        </div>
+</div>
+
+                    <button class="mt-4 text-sm underline expand-btn">Ler mais</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossas Áreas de Transformação (Novo Carrossel) -->
+    <section id="projetos" class="py-20 bg-background">
+        <!-- Container com overflow hidden para esconder os slides parciais do Swiper -->
+        <div class="overflow-hidden">
+            <div class="text-center mb-16 fade-in container mx-auto px-6">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Nossas Áreas de Transformação</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Iniciativas estratégicas focadas em criar um impacto profundo e duradouro no Rio Grande do Norte.
+                </p>
+            </div>
+            
+            <!-- Swiper Container para o Carrossel de Projetos (Ocupa 100% da largura) -->
+            <div class="swiper projects-swiper swiper-no-visible-overflow">
+                <div class="swiper-wrapper">
+                    
+                    <!-- Slide 1: Habitação Sustentável (Imagem Esquerda) -->
+                    <div class="swiper-slide project-carousel-slide">
+                        <div class="container mx-auto px-6">
+                            <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                                <!-- Coluna da Imagem (Esquerda) -->
+                                <div class="project-image-box fade-in" 
+                                     style="background-image: url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                                </div>
+                                <!-- Coluna do Conteúdo (Direita) -->
+                                <div class="project-content-box fade-in">
+                                    <h3 class="text-3xl font-bold font-sans text-primary mb-4">Habitação Sustentável</h3>
+                                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                        Focamos na bioconstrução para oferecer moradias ecológicas e dignas para famílias lideradas por mulheres. As casas são equipadas com tecnologias de baixo impacto, como energia solar e captação de água da chuva.
+                                    </p>
+                                    <ul class="space-y-2 text-dark font-semibold">
+                                        <li><i class="fas fa-solar-panel text-primary mr-2"></i> Autonomia Energética</li>
+                                        <li><i class="fas fa-home text-primary mr-2"></i> Moradia Digna e Ecológica</li>
+                                        <li><i class="fas fa-tint text-primary mr-2"></i> Gestão de Recursos Hídricos</li>
+                                    </ul>
+                                    <button class="mt-6 bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-secondary transition-colors">
+                                        Ver Detalhes do Projeto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Agroecologia Familiar (Imagem Direita - Alternando) -->
+                    <div class="swiper-slide project-carousel-slide">
+                        <div class="container mx-auto px-6">
+                            <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                                <!-- Coluna do Conteúdo (Esquerda) -->
+                                <div class="project-content-box order-2 md:order-1 fade-in">
+                                    <h3 class="text-3xl font-bold font-sans text-secondary mb-4">Agroecologia Familiar</h3>
+                                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                        Capacitamos mulheres em técnicas agroecológicas para criar hortas produtivas e sustentáveis. Isso garante segurança alimentar, nutricional e gera renda através da venda de excedentes.
+                                    </p>
+                                    <ul class="space-y-2 text-dark font-semibold">
+                                        <li><i class="fas fa-seedling text-secondary mr-2"></i> Produção de Alimentos Saudáveis</li>
+                                        <li><i class="fas fa-money-bill-wave text-secondary mr-2"></i> Geração de Renda Sustentável</li>
+                                        <li><i class="fas fa-hand-holding-heart text-secondary mr-2"></i> Segurança Alimentar</li>
+                                    </ul>
+                                    <button class="mt-6 bg-secondary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary transition-colors">
+                                        Ver Detalhes do Projeto
+                                    </button>
+                                </div>
+                                <!-- Coluna da Imagem (Direita) -->
+                                <div class="project-image-box order-1 md:order-2 fade-in" 
+                                     style="background-image: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Capacitação Profissional (Imagem Esquerda) -->
+                    <div class="swiper-slide project-carousel-slide">
+                        <div class="container mx-auto px-6">
+                            <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                                <!-- Coluna da Imagem (Esquerda) -->
+                                <div class="project-image-box fade-in" 
+                                     style="background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                                </div>
+                                <!-- Coluna do Conteúdo (Direita) -->
+                                <div class="project-content-box fade-in">
+                                    <h3 class="text-3xl font-bold font-sans text-accent mb-4">Capacitação Profissional</h3>
+                                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                        Oferecemos cursos e workshops em áreas como empreendedorismo, tecnologia e artesanato. O objetivo é fornecer as ferramentas necessárias para que as mulheres alcancem a independência econômica.
+                                    </p>
+                                    <ul class="space-y-2 text-dark font-semibold">
+                                        <li><i class="fas fa-graduation-cap text-accent mr-2"></i> Cursos e Certificação</li>
+                                        <li><i class="fas fa-briefcase text-accent mr-2"></i> Apoio ao Empreendedorismo</li>
+                                        <li><i class="fas fa-laptop-code text-accent mr-2"></i> Habilidades Digitais</li>
+                                    </ul>
+                                    <button class="mt-6 bg-accent text-white px-6 py-3 rounded-full font-semibold hover:bg-primary transition-colors">
+                                        Ver Detalhes do Projeto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Cultura e Identidade (Imagem Direita - Alternando) -->
+                    <div class="swiper-slide project-carousel-slide">
+                        <div class="container mx-auto px-6">
+                            <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                                <!-- Coluna do Conteúdo (Esquerda) -->
+                                <div class="project-content-box order-2 md:order-1 fade-in">
+                                    <h3 class="text-3xl font-bold font-sans text-primary mb-4">Cultura e Identidade</h3>
+                                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                        Valorizamos e promovemos o artesanato e as manifestações culturais do Rio Grande do Norte, transformando a arte local em fonte de renda e fortalecendo a identidade e autoestima das mulheres potiguares.
+                                    </p>
+                                    <ul class="space-y-2 text-dark font-semibold">
+                                        <li><i class="fas fa-palette text-primary mr-2"></i> Valorização do Artesanato</li>
+                                        <li><i class="fas fa-mask text-primary mr-2"></i> Promoção de Manifestações Culturais</li>
+                                        <li><i class="fas fa-hand-sparkles text-primary mr-2"></i> Fortalecimento da Autoestima</li>
+                                    </ul>
+                                    <button class="mt-6 bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-secondary transition-colors">
+                                        Ver Detalhes do Projeto
+                                    </button>
+                                </div>
+                                <!-- Coluna da Imagem (Direita) -->
+                                <div class="project-image-box order-1 md:order-2 fade-in" 
+                                     style="background-image: url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 5: Saúde e Bem-Estar (Imagem Esquerda) -->
+                    <div class="swiper-slide project-carousel-slide">
+                        <div class="container mx-auto px-6">
+                            <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                                <!-- Coluna da Imagem (Esquerda) -->
+                                <div class="project-image-box fade-in" 
+                                     style="background-image: url('https://placehold.co/1000x800/FF6B35/ffffff?text=Saúde+e+Bem-Estar');">
+                                </div>
+                                <!-- Coluna do Conteúdo (Direita) -->
+                                <div class="project-content-box fade-in">
+                                    <h3 class="text-3xl font-bold font-sans text-secondary mb-4">Saúde e Bem-Estar</h3>
+                                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                        Desenvolvemos programas de prevenção e acesso a informações de saúde física e mental. Promovemos rodas de conversa e oficinas que visam o equilíbrio e a qualidade de vida das mulheres.
+                                    </p>
+                                    <ul class="space-y-2 text-dark font-semibold">
+                                        <li><i class="fas fa-brain text-secondary mr-2"></i> Suporte à Saúde Mental</li>
+                                        <li><i class="fas fa-heartbeat text-secondary mr-2"></i> Programas de Prevenção</li>
+                                        <li><i class="fas fa-users-medical text-secondary mr-2"></i> Rodas de Conversa Comunitária</li>
+                                    </ul>
+                                    <button class="mt-6 bg-secondary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary transition-colors">
+                                        Ver Detalhes do Projeto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Paginação -->
+                <div class="swiper-pagination mt-10"></div>
+                <!-- Navegação (Desktop) -->
+                <div class="swiper-button-next text-dark hidden md:block"></div>
+                <div class="swiper-button-prev text-dark hidden md:block"></div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Os modais foram removidos pois a nova seção não utiliza mais o conceito de "Saiba Mais" para modais individuais. -->
+    
+    <!-- Impacto Section -->
+    <section id="impacto" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Nosso Impacto</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Resultados concretos que transformam vidas e comunidades
+                </p>
+            </div>
+            
+            <!-- Cards de Estatísticas -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <div class="counter text-3xl font-bold font-sans text-dark mb-2" data-target="500">0</div>
+                    <p class="text-gray-600">Mulheres Impactadas</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-white text-2xl"></i>
+                    </div>
+                    <div class="counter text-3xl font-bold font-sans text-dark mb-2" data-target="200">0</div>
+                    <p class="text-gray-600">Famílias em Habitação Digna</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <div class="counter text-3xl font-bold font-sans text-dark mb-2" data-target="30">0</div>
+                    <p class="text-gray-600">% Redução de Vulnerabilidade</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <div class="counter text-3xl font-bold font-sans text-dark mb-2" data-target="150">0</div>
+                    <p class="text-gray-600">Mulheres Capacitadas</p>
+                </div>
+            </div>
+            
+            <!-- Gráficos -->
+            <div class="grid lg:grid-cols-1 gap-12">
+              <div class="bg-background p-8 rounded-xl fade-in max-w-xl mx-auto">
+       <div class="grid lg:grid-cols-1 gap-12">
+            <div class="bg-background p-6 rounded-xl fade-in max-w-xl mx-auto">
+                     <h3 class="text-2xl font-bold font-sans text-dark mb-6 text-center">Impacto por Área</h3>
+                     <canvas id="impactChart" width="400" height="400"></canvas>
+                 </div>
+    </section>
+
+    <!-- Metas Section -->
+    <section class="py-20 bg-gradient-to-br from-primary to-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-white mb-6">Nossas Metas</h2>
+                <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                    Objetivos ambiciosos para ampliar nosso impacto até 2026
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl text-white fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-home text-3xl mr-4"></i>
+                        <h3 class="text-xl font-bold font-sans">Habitação para 1.000 Famílias</h3>
+                    </div>
+                    <p class="text-white/90 mb-6">Expandir programa de habitação sustentável até 2026</p>
+                    <div class="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div class="progress-bar h-3 rounded-full" style="width: 40%"></div>
+                    </div>
+                    <p class="text-sm text-white/80">40% concluído</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl text-white fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-seedling text-3xl mr-4"></i>
+                        <h3 class="text-xl font-bold font-sans">500 Hortas Comunitárias</h3>
+                    </div>
+                    <p class="text-white/90 mb-6">Implementar agroecologia em todo o RN</p>
+                    <div class="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div class="progress-bar h-3 rounded-full" style="width: 25%"></div>
+                    </div>
+                    <p class="text-sm text-white/80">25% concluído</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl text-white fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-users text-3xl mr-4"></i>
+                        <h3 class="text-xl font-bold font-sans">2.000 Mulheres Empoderadas</h3>
+                    </div>
+                    <p class="text-white/90 mb-6">Capacitar e empoderar mulheres em todo o estado</p>
+                    <div class="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div class="progress-bar h-3 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <p class="text-sm text-white/80">60% concluído</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos Section -->
+    <section class="py-20 bg-background">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Histórias de Transformação</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Depoimentos reais de mulheres que transformaram suas vidas conosco
+                </p>
+            </div>
+            
+            <div class="swiper testimonials-swiper max-w-4xl mx-auto">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                            <div class="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-6" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b4ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'); background-size: cover; background-position: center;"></div>
+                            <div class="flex justify-center mb-4">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                            <p class="text-lg text-gray-600 mb-6 italic">
+                                "O programa de habitação sustentável da Colmeia AMRN transformou completamente minha vida. Hoje tenho uma casa digna para minha família e aprendi técnicas de agroecologia que me geram renda extra."
+                            </p>
+                            <h4 class="text-xl font-bold font-sans text-dark">Maria Silva</h4>
+                            <p class="text-gray-500">Beneficiária - Natal/RN</p>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                            <div class="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-6" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'); background-size: cover; background-position: center;"></div>
+                            <div class="flex justify-center mb-4">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                            <p class="text-lg text-gray-600 mb-6 italic">
+                                "Através dos cursos de capacitação, consegui abrir meu próprio negócio de artesanato. A Colmeia não apenas me ensinou técnicas, mas me deu coragem para sonhar grande."
+                            </p>
+                            <h4 class="text-xl font-bold font-sans text-dark">Ana Santos</h4>
+                            <p class="text-gray-500">Empreendedora - Mossoró/RN</p>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                            <div class="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-6" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'); background-size: cover; background-position: center;"></div>
+                            <div class="flex justify-center mb-4">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                            <p class="text-lg text-gray-600 mb-6 italic">
+                                "O programa de agroecologia me conectou com minhas raízes e me ensinou a produzir alimentos saudáveis. Hoje sou referência na minha comunidade e ajudo outras mulheres."
+                            </p>
+                            <h4 class="text-xl font-bold font-sans text-dark">Joana Oliveira</h4>
+                            <p class="text-gray-500">Agricultora - Caicó/RN</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination mt-8"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dicas de Renda Extra Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Dicas de Renda Extra</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Oportunidades práticas para gerar renda e conquistar independência financeira
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-laptop text-primary text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Freelancer Online</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Trabalhe de casa oferecendo serviços digitais como redação, design ou assistência virtual.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                       
+                    </div>
+                </div>
+                
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-palette text-secondary text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Loja de Artesanato</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Crie e venda produtos artesanais únicos valorizando a cultura local do RN.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                        
+                    </div>
+                </div>
+                
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-magic text-accent text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Aulas de Maquiagem</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Ofereça serviços de maquiagem para eventos especiais e ensine técnicas para outras mulheres.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                       
+                    </div>
+                </div>
+                
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-store text-primary text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Revenda</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Inicie um negócio de revenda de produtos de beleza, roupas ou produtos para casa.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                       
+                    </div>
+                </div>
+                
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-video text-secondary text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Criação de Conteúdo</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Produza conteúdo para redes sociais e monetize através de parcerias e publicidade.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                        
+                    </div>
+                </div>
+                
+                <div class="bg-background p-6 rounded-xl card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-home text-accent text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold font-sans text-dark">Aluguel de Espaços</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Rentabilize espaços da sua casa oferecendo quartos ou salas para eventos.</p>
+                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-play text-gray-400 text-3xl"></i>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors">
+                            Assistir Tutorial
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programas Governamentais Section -->
+    <section class="py-20 bg-background">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Programas Governamentais</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Conheça os programas públicos disponíveis para apoiar o empoderamento feminino
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-female text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Programa Mulher Cidadã</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Capacitação profissional e cidadã para mulheres em situação de vulnerabilidade social.</p>
+                    <a href="#" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Acessar Programa <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-heart text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Dignidade Menstrual</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Distribuição gratuita de absorventes e educação sobre saúde menstrual.</p>
+                    <a href="#" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Acessar Programa <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-home text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Casa da Mulher Brasileira</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Atendimento humanizado e integral às mulheres em situação de violência.</p>
+                    <a href="#" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Acessar Programa <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-phone text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Ligue 180</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Central de atendimento à mulher - disque denúncia, violência doméstica e familiar.</p>
+                    <a href="tel:180" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Ligar 180 <i class="fas fa-phone ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-rocket text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Acredita no Primeiro Passo</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Microcrédito orientado para mulheres empreendedoras de baixa renda.</p>
+                    <a href="#" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Acessar Programa <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-sans text-dark">Mulheres Mil</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Programa de educação profissional e tecnológica para mulheres.</p>
+                    <a href="#" class="text-primary font-semibold hover:text-secondary transition-colors">
+                        Acessar Programa <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Perguntas Frequentes</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Tire suas dúvidas sobre nossos programas e serviços
+                </p>
+            </div>
+            
+            <!-- Busca FAQ -->
+            <div class="max-w-2xl mx-auto mb-12 fade-in">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="faq-search" placeholder="Buscar nas perguntas frequentes..." 
+                           class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+                </div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-4" id="faq-accordion">
+                    <div class="faq-item bg-background rounded-xl">
+                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-dark">Como posso me inscrever nos programas da Colmeia AMRN?</span>
+                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+                        </button>
+                        <div class="faq-answer hidden p-6 pt-0">
+                            <p class="text-gray-600">Você pode se inscrever através do nosso site, presencialmente em nossos escritórios ou durante os eventos. Mantemos inscrições abertas durante todo o ano e priorizamos mulheres em situação de vulnerabilidade social.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item bg-background rounded-xl">
+                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-dark">Quais são os critérios para participar do programa de habitação?</span>
+                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+                        </button>
+                        <div class="faq-answer hidden p-6 pt-0">
+                            <p class="text-gray-600">O programa atende famílias lideradas por mulheres com renda familiar de até 3 salários mínimos, priorizando mães solteiras e mulheres em situação de vulnerabilidade. É necessário apresentar documentação comprobatória e participar do processo de seleção.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item bg-background rounded-xl">
+                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-dark">Os cursos e workshops são gratuitos?</span>
+                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+                        </button>
+                        <div class="faq-answer hidden p-6 pt-0">
+                            <p class="text-gray-600">Sim! Todos os nossos programas de capacitação são completamente gratuitos. Oferecemos também certificados de participação e, quando necessário, ajuda de custo para transporte e alimentação.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item bg-background rounded-xl">
+                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-dark">Como posso fazer doações para a Colmeia AMRN?</span>
+                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+                        </button>
+                        <div class="faq-answer hidden p-6 pt-0">
+                            <p class="text-gray-600">Aceitamos doações via PIX, transferência bancária, cartão de crédito através do nosso site, ou doações de materiais e produtos. Todas as doações são dedutíveis do Imposto de Renda e emitimos recibo oficial.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item bg-background rounded-xl">
+                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-dark">Vocês atendem em quais cidades do RN?</span>
+                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+                        </button>
+                        <div class="faq-answer hidden p-6 pt-0">
+                            <p class="text-gray-600">Atualmente temos ações em Natal, Mossoró, Caicó e região metropolitana. Estamos expandindo para outras cidades do interior. Se você não está em nossa área de atuação, entre em contato para verificarmos parcerias locais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parceiros Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Nossos Parceiros</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Juntos, construímos uma rede de apoio ao empoderamento feminino
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">SEBRAE</span>
+                    </div>
+                </div>
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">GOV RN</span>
+                    </div>
+                </div>
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">UFRN</span>
+                    </div>
+                </div>
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">ONU MULHERES</span>
+                    </div>
+                </div>
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">EMATER</span>
+                    </div>
+                </div>
+                <div class="partner-logo bg-background p-6 rounded-xl hover:shadow-lg transition-shadow fade-in">
+                    <div class="h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500 font-bold">INCRA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="py-20 bg-background">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Entre em Contato</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Estamos aqui para ouvir você e responder suas dúvidas
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Informações de Contato -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold font-sans text-dark mb-8">Fale Conosco</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark mb-1">Endereço</h4>
+                                <p class="text-gray-600">Rua Cleofas Nunes, 74<br>Itaú - RN<br>CEP: 59855-000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark mb-1">Telefone</h4>
+                                <p class="text-gray-600">(84) 3234-5678<br>(84) 99999-0000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark mb-1">E-mail</h4>
+                                <p class="text-gray-600">contato@colmeiaamrn.org<br>projetos@colmeiaamrn.org</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark mb-1">Horário de Funcionamento</h4>
+                                <p class="text-gray-600">Segunda a Sexta: 8h às 17h<br>Sábado: 8h às 12h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Redes Sociais -->
+                    <div class="mt-8">
+                        <h4 class="font-bold text-dark mb-4">Siga-nos nas Redes Sociais</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white hover:bg-secondary transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white hover:bg-secondary transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white hover:bg-secondary transition-colors">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white hover:bg-secondary transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de Contato -->
+                <div class="bg-white p-8 rounded-xl shadow-lg fade-in">
+                    <h3 class="text-2xl font-bold font-sans text-dark mb-6">Envie sua Mensagem</h3>
+                    
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-dark mb-2">Nome *</label>
+                                <input type="text" required 
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-dark mb-2">E-mail *</label>
+                                <input type="email" required 
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-dark mb-2">Telefone</label>
+                            <input type="tel" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-dark mb-2">Assunto *</label>
+                            <select required 
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+                                <option value="">Selecione um assunto</option>
+                                <option value="info">Informações Gerais</option>
+                                <option value="volunteer">Quero ser Voluntária</option>
+                                <option value="partnership">Parcerias</option>
+                                <option value="donation">Doações</option>
+                                <option value="program">Participar dos Programas</option>
+                                <option value="other">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-dark mb-2">Mensagem *</label>
+                            <textarea required rows="5" 
+                                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base resize-vertical"></textarea>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="checkbox" required class="mr-3">
+                            <label class="text-sm text-gray-600">
+                                Concordo com os <a href="#" class="text-primary hover:underline">termos de privacidade</a> *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-primary text-white py-4 rounded-lg font-bold text-lg hover:bg-secondary transition-colors">
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Mapa -->
+            <div class="mt-16 fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3969.5!2d-37.9949999!3d-5.84!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab2e2f3a4b5c6d%3A0x0!2sRua+Cleofas+Nunes%2C+74%2C+Ita%C3%BA+-+RN%2C+59855-000!5e0!3m2!1spt-BR!2sbr!4v1728652800000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Logo e Descrição -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                            <i class="fas fa-seedling text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold font-sans">Colmeia </h1>
+                            <p class="text-sm text-gray-400">Associação de Mulheres pelo Rio Grande do Norte</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Associação de Mulheres pelo Rio Grande do Norte dedicada ao empoderamento feminino através de habitação sustentável, agroecologia e capacitação profissional.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-secondary transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links Rápidos -->
+                <div>
+                    <h3 class="text-lg font-bold font-sans mb-6">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#sobre" class="text-gray-300 hover:text-primary transition-colors">Sobre Nós</a></li>
+                        <li><a href="#projetos" class="text-gray-300 hover:text-primary transition-colors">Projetos</a></li>
+                        <li><a href="#blog" class="text-gray-300 hover:text-primary transition-colors">Blog</a></li>
+                        <li><a href="#contato" class="text-gray-300 hover:text-primary transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programas -->
+                <div>
+                    <h3 class="text-lg font-bold font-sans mb-6">Nossos Programas</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Habitação Sustentável</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Agroecologia</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Capacitação</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Cultura e Identidade</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Renda Extra</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Colmeia - Associação de Mulheres pelo Rio Grande do Norte. Todos os direitos reservados.
+                </p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm">Política de Privacidade</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm">Termos de Uso</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary transition-colors">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="fixed bottom-20 right-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary transition-all transform translate-y-20 opacity-0">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Hero Swiper (Updated to the new 2-column structure)
+            const heroSwiper = new Swiper('.hero-swiper', {
+                // Configurações do novo carrossel de Hero
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                effect: 'slide', // Usando slide simples
+                // Adicionando um container wrapper para resolver o problema de visualização parcial
+                wrapperClass: 'swiper-wrapper',
+                slideClass: 'swiper-slide',
+            });
+
+            // Initialize Project Swiper (Carrossel de Projetos)
+            const projectsSwiper = new Swiper('.projects-swiper', {
+                // Configurações do carrossel de projetos
+                slidesPerView: 1,
+                spaceBetween: 0, // Removido espaço entre slides para garantir que apenas um seja visível por vez
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                // Adicionando um container wrapper para resolver o problema de visualização parcial
+                wrapperClass: 'swiper-wrapper',
+                slideClass: 'swiper-slide',
+            });
+
+            // Initialize Testimonials Swiper
+            const testimonialsSwiper = new Swiper('.testimonials-swiper', {
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                loop: true,
+                spaceBetween: 30,
+                centeredSlides: true,
+            });
+
+            // Fade in animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Expandable cards
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.expandable-card');
+                    const expanded = card.querySelector('.card-expanded');
+                    
+                    if (expanded.classList.contains('hidden')) {
+                        expanded.classList.remove('hidden');
+                        this.textContent = 'Ler menos';
+                    } else {
+                        expanded.classList.add('hidden');
+                        this.textContent = 'Ler mais';
+                    }
+                });
+            });
+
+            // NOTA: A funcionalidade de filtro de projetos e de modais foi removida pois a seção "Projetos" foi substituída por um carrossel de 2 colunas.
+
+            // FAQ accordion
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (answer.classList.contains('hidden')) {
+                        answer.classList.remove('hidden');
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        answer.classList.add('hidden');
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            // FAQ search
+            const faqSearch = document.getElementById('faq-search');
+            faqSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm) ) {
+                        item.style.display = 'block';
+                        // Highlight search term
+                        if (searchTerm) {
+                            const questionEl = item.querySelector('.faq-question span');
+                            const answerEl = item.querySelector('.faq-answer p');
+                            questionEl.innerHTML = questionEl.textContent.replace(
+                                new RegExp(searchTerm, 'gi'), 
+                                match => `<span class="search-highlight">${match}</span>`
+                            );
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            // Counter animation
+            function animateCounters() {
+                document.querySelectorAll('.counter').forEach(counter => {
+                    const target = parseInt(counter.dataset.target);
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            counter.textContent = target + (target === 30 ? '%' : '+');
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current) + (target === 30 ? '%' : '+');
+                        }
+                    }, 16);
+                });
+            }
+
+            // Trigger counter animation when visible
+            const counterObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        counterObserver.disconnect();
+                    }
+                });
+            });
+
+            const countersSection = document.querySelector('#impacto');
+            if (countersSection) {
+                counterObserver.observe(countersSection);
+            }
+
+            // Initialize charts
+            initializeCharts();
+
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+                    backToTopBtn.classList.add('translate-y-0', 'opacity-100');
+                } else {
+                    backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+                    backToTopBtn.classList.remove('translate-y-0', 'opacity-100');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Form submissions
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Handle form submission
+                showCustomAlert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            });
+
+            // Chat widget
+            document.querySelector('.chat-widget button').addEventListener('click', function() {
+                const message = "Olá! Gostaria de saber mais sobre os programas da Colmeia AMRN.";
+                const whatsappUrl = `https://wa.me/5584999990000?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+
+        // Custom alert function (replacing alert())
+        function showCustomAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-[9999]';
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>${message}</span>
+                    <button class="ml-4 text-white hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                if (alertDiv.parentElement) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Impact Chart
+            const impactCtx = document.getElementById('impactChart');
+            if (impactCtx) {
+                new Chart(impactCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Habitação', 'Agroecologia', 'Capacitação', 'Cultura'],
+                        datasets: [{
+                            label: 'Mulheres Beneficiadas',
+                            data: [200, 150, 120, 80],
+                            backgroundColor: [
+                                '#FDB813',
+                                '#FF6B35',
+                                '#8A2BE2',
+                                '#FF7F7F'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+        }
+    </script>
+</body>
+</html>
