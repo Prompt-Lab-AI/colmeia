@@ -1002,79 +1002,199 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Perguntas Frequentes</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Tire suas dúvidas sobre nossos programas e serviços
-                </p>
-            </div>
-            
-            <!-- Busca FAQ -->
-            <div class="max-w-2xl mx-auto mb-12 fade-in">
-                <div class="relative">
-                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="faq-search" placeholder="Buscar nas perguntas frequentes..." 
-                           class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
-                </div>
-            </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <div class="space-y-4" id="faq-accordion">
-                    <div class="faq-item bg-background rounded-xl">
-                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="text-lg font-semibold text-dark">Como posso me inscrever nos programas da Colmeia AMRN?</span>
-                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
-                        </button>
-                        <div class="faq-answer hidden p-6 pt-0">
-                            <p class="text-gray-600">Você pode se inscrever através do nosso site, presencialmente em nossos escritórios ou durante os eventos. Mantemos inscrições abertas durante todo o ano e priorizamos mulheres em situação de vulnerabilidade social.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item bg-background rounded-xl">
-                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="text-lg font-semibold text-dark">Quais são os critérios para participar do programa de habitação?</span>
-                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
-                        </button>
-                        <div class="faq-answer hidden p-6 pt-0">
-                            <p class="text-gray-600">O programa atende famílias lideradas por mulheres com renda familiar de até 3 salários mínimos, priorizando mães solteiras e mulheres em situação de vulnerabilidade. É necessário apresentar documentação comprobatória e participar do processo de seleção.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item bg-background rounded-xl">
-                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="text-lg font-semibold text-dark">Os cursos e workshops são gratuitos?</span>
-                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
-                        </button>
-                        <div class="faq-answer hidden p-6 pt-0">
-                            <p class="text-gray-600">Sim! Todos os nossos programas de capacitação são completamente gratuitos. Oferecemos também certificados de participação e, quando necessário, ajuda de custo para transporte e alimentação.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item bg-background rounded-xl">
-                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="text-lg font-semibold text-dark">Como posso fazer doações para a Colmeia AMRN?</span>
-                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
-                        </button>
-                        <div class="faq-answer hidden p-6 pt-0">
-                            <p class="text-gray-600">Aceitamos doações via PIX, transferência bancária, cartão de crédito através do nosso site, ou doações de materiais e produtos. Todas as doações são dedutíveis do Imposto de Renda e emitimos recibo oficial.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item bg-background rounded-xl">
-                        <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="text-lg font-semibold text-dark">Vocês atendem em quais cidades do RN?</span>
-                            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
-                        </button>
-                        <div class="faq-answer hidden p-6 pt-0">
-                            <p class="text-gray-600">Atualmente temos ações em Natal, Mossoró, Caicó e região metropolitana. Estamos expandindo para outras cidades do interior. Se você não está em nossa área de atuação, entre em contato para verificarmos parcerias locais.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16 fade-in">
+      <h2 class="text-4xl lg:text-5xl font-bold font-sans text-dark mb-6">Perguntas Frequentes</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Encontre respostas sobre inscrições, doações, voluntariado e parcerias com a Colmeia
+      </p>
+    </div>
+
+    <!-- Busca FAQ -->
+    <div class="max-w-2xl mx-auto mb-12 fade-in">
+      <div class="relative">
+        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        <input type="text" id="faq-search" placeholder="Buscar nas perguntas frequentes..."
+          class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base">
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-4" id="faq-accordion">
+
+        <!-- Inscrição -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Como faço para me inscrever nos programas e projetos da Colmeia?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              As inscrições acontecem por meio de formulários online disponíveis na página de cada projeto
+              ou presencialmente em nossos pontos de atendimento, durante os períodos de abertura de turmas.
+              Acompanhe nossas redes sociais e a seção <strong>Projetos</strong> para ficar por dentro dos prazos e garantir sua vaga.
+            </p>
+          </div>
         </div>
-    </section>
+
+        <!-- Gratuidade -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Existe alguma taxa para participar dos cursos ou programas de habitação?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Não. Todos os cursos e programas são <strong>100% gratuitos</strong> para as mulheres selecionadas.
+              A Colmeia é mantida por doações, parcerias e recursos de fomento, garantindo que a renda
+              nunca seja um obstáculo para o desenvolvimento e a transformação social.
+            </p>
+          </div>
+        </div>
+
+        <!-- Escolaridade -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Preciso ter alguma formação ou escolaridade mínima para participar?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              A maioria dos cursos não exige escolaridade mínima. Nossos programas são pensados
+              para mulheres com diferentes níveis de experiência e formação. O mais importante é
+              a vontade de aprender e a busca por novas oportunidades.
+            </p>
+          </div>
+        </div>
+
+        <!-- Participar de mais de um -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Posso participar de mais de um projeto ou curso ao mesmo tempo?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Sim! Desde que os horários e compromissos não sejam conflitantes. Cursos de curta duração
+              podem ser combinados, mas programas de longo prazo — como habitação ou empreendedorismo —
+              exigem dedicação exclusiva.
+            </p>
+          </div>
+        </div>
+
+        <!-- Transparência -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Como a Colmeia garante a transparência na utilização dos recursos?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Publicamos anualmente relatórios financeiros auditados, detalhando a origem e o destino dos recursos.
+              Eles estão disponíveis na seção <strong>Impacto</strong> e em nosso <strong>Portal de Transparência</strong>,
+              garantindo total confiança a doadores e parceiros.
+            </p>
+          </div>
+        </div>
+
+        <!-- Doações -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Como posso fazer doações de materiais (roupas, alimentos, ferramentas)?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              As doações podem ser entregues em nosso escritório principal (veja o endereço em <strong>Contato</strong>).
+              Para doações em grande volume, entre em contato pelo e-mail
+              <a href="mailto:contato@colmeiaamrn.org" class="text-primary hover:underline">contato@colmeiaamrn.org</a>
+              para agendar a entrega ou coleta.
+            </p>
+          </div>
+        </div>
+
+        <!-- Voluntariado -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">É possível ser voluntário(a) remotamente?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Sim! Temos oportunidades de voluntariado online em áreas como redes sociais, design, tradução e suporte administrativo.
+              Basta enviar uma mensagem através do formulário de <strong>Contato</strong> com o assunto
+              <em>"Quero ser Voluntário Remoto"</em>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Parcerias -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Minha empresa pode se tornar parceira da Colmeia?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Com certeza! Buscamos parcerias com empresas que compartilham nossos valores. É possível apoiar projetos
+              com patrocínios, doações de materiais ou prestação de serviços Pro Bono.
+              Entre em contato pelo e-mail
+              <a href="mailto:projetos@colmeiaamrn.org" class="text-primary hover:underline">projetos@colmeiaamrn.org</a>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Habilidades -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Como posso contribuir com minhas habilidades específicas?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Valorizamos o trabalho Pro Bono! Se você atua em áreas como Direito, Contabilidade, Design,
+              Marketing ou outras, preencha o formulário de voluntariado e descreva sua especialidade.
+              Sua expertise pode transformar a vida de muitas mulheres!
+            </p>
+          </div>
+        </div>
+
+        <!-- Eventos -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Em quais eventos ou feiras a Colmeia costuma participar?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Participamos regularmente de feiras de artesanato, eventos de agricultura familiar e encontros
+              de empoderamento feminino pelo RN. Nossa agenda de eventos é divulgada mensalmente nas redes sociais
+              e na seção <strong>Blog/Notícias</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Indicação -->
+        <div class="faq-item bg-background rounded-xl">
+          <button class="faq-question w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <span class="text-lg font-semibold text-dark">Posso indicar uma mulher que precisa de ajuda para os programas da ONG?</span>
+            <i class="fas fa-chevron-down text-primary transform transition-transform"></i>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">
+              Sim! Preencha o <strong>Formulário de Indicação</strong> disponível na página de Contato.
+              Nossa equipe entrará em contato com a mulher indicada para entender sua situação
+              e orientá-la sobre os programas mais adequados.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- Parceiros Section -->
     <section class="py-20 bg-white">
